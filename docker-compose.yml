@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=mydb
+    ports:
+      - 3307:3306
+    volumes:
+      - ./databases:/docker-entrypoint-initdb.d
+    restart: always
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
